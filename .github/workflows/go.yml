@@ -27,19 +27,19 @@ jobs:
 
     - name: Build linux aarch64
       env:
-        GOOS:linux
-        GOARCH:arm64
+        GOOS: linux
+        GOARCH: arm64
       run: go build -o nvigo_aarch64 -v ./...
 
     - name: Build linux arm
       env:
-        GOOS:linux
-        GOARCH:arm
+        GOOS: linux
+        GOARCH: arm
       run: go build -o nvigo_arm -v ./...
 
     - name: Build windows x86-64
       env:
-        GOOS:windows
+        GOOS: windows
       run: go build -o nvigo_aarch64 -v ./...
 
     - name: Test

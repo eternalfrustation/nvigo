@@ -10,6 +10,9 @@ on:
   pull_request:
     branches: [ "master" ]
 
+permissions:
+  contents: write
+
 jobs:
 
   build:
@@ -23,24 +26,33 @@ jobs:
         go-version: '1.22'
 
     - name: Build linux x86-64
-      run: go build -o nvigo_x86-64 -v ./...
+      run: go build -o nvigo-x86_64 -v ./...
 
     - name: Build linux aarch64
       env:
         GOOS: linux
         GOARCH: arm64
-      run: go build -o nvigo_aarch64 -v ./...
+      run: go build -o nvigo-aarch64 -v ./...
 
     - name: Build linux arm
       env:
         GOOS: linux
         GOARCH: arm
-      run: go build -o nvigo_arm -v ./...
+      run: go build -o nvigo-arm -v ./...
 
     - name: Build windows x86-64
       env:
         GOOS: windows
-      run: go build -o nvigo_aarch64 -v ./...
+      run: go build -o nvigo-x86_64.exe -v ./...
 
     - name: Test
       run: go test -v ./...
+
+    - name: Release
+      uses: softprops/action-gh-release@v2
+      with:
+        files: |
+          nvigo-x86_64
+          nvigo-aarch64
+          nvigo-arm
+          nvigo-x86_64.exe

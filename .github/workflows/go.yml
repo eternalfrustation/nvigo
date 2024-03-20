@@ -22,8 +22,25 @@ jobs:
       with:
         go-version: '1.22'
 
-    - name: Build
-      run: go build -v ./...
+    - name: Build linux x86-64
+      run: go build -o nvigo_x86-64 -v ./...
+
+    - name: Build linux aarch64
+      env:
+        GOOS:linux
+        GOARCH:arm64
+      run: go build -o nvigo_aarch64 -v ./...
+
+    - name: Build linux arm
+      env:
+        GOOS:linux
+        GOARCH:arm
+      run: go build -o nvigo_arm -v ./...
+
+    - name: Build windows x86-64
+      env:
+        GOOS:windows
+      run: go build -o nvigo_aarch64 -v ./...
 
     - name: Test
       run: go test -v ./...
